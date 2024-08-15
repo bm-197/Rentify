@@ -27,8 +27,4 @@ export default class CarsController {
       return res.status(500).json({ error: "Failed to add car, please try again later." });
     }
   }
-
-  static async postRentCar(req, res) {
-    
-  }
 }
