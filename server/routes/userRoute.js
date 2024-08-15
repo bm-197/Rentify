@@ -17,5 +17,7 @@ userRouter.post("/login", UsersControllers.getUser);
 userRouter.get("/get/all/users", UsersControllers.getAllUser);
 userRouter.post("/add/car", files, AuthMiddleware, CarsController.postNewCar);
 userRouter.post("/rent/car", AuthMiddleware, files, CarsController.postRentCar);
+userRouter.get("/get/all/cars", CarsController.getAllcars);
+
 
 export default userRouter;

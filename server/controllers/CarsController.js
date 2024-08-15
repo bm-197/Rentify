@@ -81,4 +81,18 @@ export default class CarsController {
       res.status(500).json({ message: "Server error, please try again later." });
     }
   }
+
+  static async getAllcars(req, res, next) {
+    try {
+      let cars;
+      if (req.query.type === "user") {
+        cars = await Car.find({ active: true });
+      } else if (req.query.type === "admin") {
+        cars = await Car.find();
+      }
+      return res.status(200).send(cars);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to retrieve cars, please try again later." });
+    }
+  }
 }
