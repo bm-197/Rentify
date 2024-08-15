@@ -1,4 +1,7 @@
 import { Rent } from "../models/RentModel.js";
+import mongoose from "../utils/db.js";
+import { ObjectId } from "mongodb";
+
 
 export default class RentHistoryController {
   static async getHistory(req, res) {
@@ -12,9 +15,22 @@ export default class RentHistoryController {
 
   static async deleteHistory(req, res) {
     try {
-      await Rent.deleteOne({ _id: req.body.id });
-      res.status(200).send("Histroy deleted");
+      const { id } = req.body;
+
+      if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(400).json({ error: "Invalid ID format" });
+      }
+
+      // Attempt to delete the document
+      const result = await Rent.findByIdAndDelete(id);
+
+      if (!result) {
+        return res.status(404).json({ error: "History not found" });
+      }
+
+      res.status(200).send("History deleted");
     } catch (error) {
+      console.log(error)
       res.status(500).json({ error: "Failed to delete histroy, please try again"});
     }
   }
