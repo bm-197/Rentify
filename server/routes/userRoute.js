@@ -1,6 +1,7 @@
 import express from "express";
 import UsersControllers from "../controllers/UsersController.js";
 import CarsController from "../controllers/CarsController.js";
+import RentHistoryController from "../controllers/RentHistroyController.js";
 import { userValidator } from "../utils/validator.js";
 import { upload } from "../utils/upload.js";
 import { AuthMiddleware } from "../middleware/auth.js";
@@ -18,6 +19,7 @@ userRouter.get("/get/all/users", UsersControllers.getAllUser);
 userRouter.post("/add/car", files, AuthMiddleware, CarsController.postNewCar);
 userRouter.post("/rent/car", AuthMiddleware, files, CarsController.postRentCar);
 userRouter.get("/get/all/cars", CarsController.getAllcars);
-
+userRouter.get("/get/history", RentHistoryController.getHistory);
+userRouter.delete("/delete/History", AuthMiddleware, RentHistoryController.deleteHistory);
 
 export default userRouter;
