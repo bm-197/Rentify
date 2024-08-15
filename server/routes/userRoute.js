@@ -14,6 +14,7 @@ const files = upload.fields([
 
 userRouter.post("/register", files, userValidator, UsersControllers.postNewUser);
 userRouter.post("/login", UsersControllers.getUser);
+userRouter.get("/get/all/users", UsersControllers.getAllUser);
 userRouter.post("/add/car", files, AuthMiddleware, CarsController.postNewCar);
 userRouter.post("/rent/car", AuthMiddleware, files, CarsController.postRentCar);
 
