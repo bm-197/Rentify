@@ -7,9 +7,14 @@
     "node": ">=14.x <=22.x"
   },
   "scripts": {
-    "dev": "set NODE.ENV='development' && nodemon ./app.js",
-    "pro": "set NODE.ENV='production' && nodemon ./app.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lint": "./node_modules/.bin/eslint",
+    "lint-nt": "./node_modules/.bin/eslint.cmd",
+    "check-lint": "lint controllers/ models/ middlewares/ routes/ utils/ app.js",
+    "start-server": "nodemon --exec babel-node --presets @babel/preset-env ./app.js",
+    "dev": "nodemon --exec babel-node --presets @babel/preset-env",
+    "test": "./node_modules/.bin/mocha --opts mocha.opts tests/**/*.js",
+    "test-with-coverage": "nyc --reporter=text ./node_modules/.bin/mocha --opts mocha.opts tests/**/*.js",
+    "coveralls": "nyc ./node_modules/.bin/mocha --opts mocha.opts tests/**/*.js && nyc report --reporter=text-lcov | coveralls"
   },
   "keywords": [],
   "author": "",
