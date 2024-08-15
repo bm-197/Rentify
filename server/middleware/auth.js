@@ -1,4 +1,4 @@
-import { Signup } from "../models/SignupModel";
+import { Signup } from "../models/SignupModel.js";
 import { promisify } from "util";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
