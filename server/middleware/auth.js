@@ -24,4 +24,5 @@ export const AuthMiddleware = async (req, res, next) => {
   } catch (err) {
     return res.status(401).send("Unauthorized acess, token is invalid or expired");
   }
+  next();
 };
