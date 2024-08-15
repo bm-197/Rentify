@@ -29,6 +29,56 @@ export default class CarsController {
   }
 
   static async postRentCar(req, res) {
-    
+    const {
+      firstName,
+      lastName,
+      email,
+      address,
+      phone,
+      profilePic,
+      carPhoto,
+      model,
+      mark,
+      price,
+      pickDate,
+      dropDate,
+      pickTime,
+      dropTime,
+      id,
+    } = req.body;
+  
+    try {
+      const car = await Car.findOne(id);
+      if (!car) {
+        return res.status(404).json({ message: "Car not found" });
+      }
+
+      car.status = "Taken";
+      await car.save();
+  
+      // Create a new rental record
+      await Rent.create({
+        firstName,
+        lastName,
+        email,
+        address,
+        phone,
+        profilePic,
+        carPhoto,
+        model,
+        mark,
+        price,
+        pickDate,
+        dropDate,
+        pickTime,
+        dropTime,
+        carId: new ObjectId(id),
+      });
+  
+      res.status(200).json({ message: "Car booked successfully" });
+    } catch (error) {
+      console.error("Error booking car:", error);
+      res.status(500).json({ message: "Server error, please try again later." });
+    }
   }
 }
