@@ -20,7 +20,7 @@ userRouter.post("/add/car", files, AuthMiddleware, CarsController.postNewCar);
 userRouter.post("/rent/car", AuthMiddleware, files, CarsController.postRentCar);
 userRouter.get("/get/all/cars", CarsController.getAllcars);
 userRouter.get("/get/history", RentHistoryController.getHistory);
-userRouter.delete("/delete/History", AuthMiddleware, RentHistoryController.deleteHistory);
+userRouter.delete("/delete/History", files, AuthMiddleware, RentHistoryController.deleteHistory);
 userRouter.patch("/freeze/active/user", AuthMiddleware, ActionsController.freeze);
 
 export default userRouter;
