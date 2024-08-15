@@ -1,4 +1,4 @@
-import { Rent } from "../models/RentModel";
+import { Rent } from "../models/RentModel.js";
 
 export default class RentHistoryController {
   static async getHistory(req, res) {
