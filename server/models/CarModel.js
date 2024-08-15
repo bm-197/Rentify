@@ -14,4 +14,4 @@ const carSchema = new mongoose.Schema({
   status: { type: String, default: "available" },
 });
 
-export const Car = mongoose.model("car", carSchema);
+export const Car = mongoose.model("cars", carSchema);

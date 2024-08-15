@@ -1,5 +1,6 @@
 import express from "express";
 import UsersControllers from "../controllers/UsersController.js";
+import CarsController from "../controllers/CarsController.js";
 import { userValidator } from "../utils/validator.js";
 import { upload } from "../utils/upload.js";
 
@@ -12,5 +13,6 @@ const files = upload.fields([
 
 userRouter.post("/register", files, userValidator, UsersControllers.postNewUser);
 userRouter.post("/login", UsersControllers.getUser);
+userRouter.post("/add/car", files, CarsController.postNewCar);
 
 export default userRouter;

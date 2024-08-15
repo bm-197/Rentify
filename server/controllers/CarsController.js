@@ -1,4 +1,4 @@
-import Car from "../models/CarModel.js";
+import { Car } from "../models/CarModel.js";
 
 export default class CarsController {
   static async postNewCar(req, res, next) {
