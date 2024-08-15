@@ -1,5 +1,5 @@
-import { Car } from "../models/CarModel";
-import { Rent } from "../models/RentModel";
+import { Car } from "../models/CarModel.js";
+import { Signup } from "../models/SignupModel.js";
 
 export default class ActionsController {
   static async freeze(req, res) {
