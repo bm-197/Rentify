@@ -1,4 +1,6 @@
 import { Car } from "../models/CarModel.js";
+import { Rent } from "../models/RentModel.js";
+import { ObjectId } from "mongodb";
 
 export default class CarsController {
   static async postNewCar(req, res, next) {
@@ -48,7 +50,7 @@ export default class CarsController {
     } = req.body;
   
     try {
-      const car = await Car.findOne(id);
+      const car = await Car.findOne({_id: new ObjectId(id)});
       if (!car) {
         return res.status(404).json({ message: "Car not found" });
       }
