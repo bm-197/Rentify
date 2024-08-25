@@ -67,7 +67,7 @@ function Navbar() {
                   <Link onClick={openNav} className="navbar__buttons__sign-in" to="/">
                     Sign In
                   </Link>
-                  <Link onClick={openNav} className="navbar__buttons__register" to="/">
+                  <Link onClick={openNav} className="navbar__buttons__register" to="/signup">
                     Register
                   </Link>
                 </div>
@@ -151,7 +151,7 @@ function Navbar() {
               <Link className="navbar__buttons__sign-in" to="/">
                 Sign In
               </Link>
-              <Link className="navbar__buttons__register" to="/">
+              <Link className="navbar__buttons__register" to="/signup">
                 Register
               </Link>
             </div>
