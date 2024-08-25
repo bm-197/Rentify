@@ -37,7 +37,7 @@ function Navbar() {
               </Link>
             </li>
             <li>
-              <Link onClick={openNav} to="/">
+              <Link onClick={openNav} to="/about">
                 About
               </Link>
             </li>
@@ -76,11 +76,9 @@ function Navbar() {
             <li>
               {localStorage.getItem("jwt") !== null && user && (
                 <div className="flex flex-col gap-3 -mt-5">
-                  {user.role === "admin" && (
                     <Link onClick={openNav} className="navbar__buttons__sign-in" to="/">
-                      Admin Panel
+                      Dashboard
                     </Link>
-                  )}
                   <Link
                     onClick={() => {
                       openNav();
@@ -115,7 +113,7 @@ function Navbar() {
             </li>
             <li>
               {" "}
-              <Link className="about-link" to="/">
+              <Link className="about-link" to="/about">
                 About
               </Link>
             </li>
