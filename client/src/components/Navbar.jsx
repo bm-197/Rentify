@@ -42,7 +42,7 @@ function Navbar() {
               </Link>
             </li>
             <li>
-              <Link onClick={openNav} to="/">
+              <Link onClick={openNav} to="/book">
                 Book
               </Link>
             </li>
@@ -127,7 +127,7 @@ function Navbar() {
             </li>
             <li>
               {" "}
-              <Link className="models-link" to="/">
+              <Link className="models-link" to="/book">
                 <DirectionsCar fontSize="large" className="text-red-400 font-extrabold" /> <span className="">Book</span>
               </Link>
             </li>

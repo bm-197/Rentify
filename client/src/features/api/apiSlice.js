@@ -5,6 +5,11 @@ export const apiSlice = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: "http://localhost:5000",
     prepareHeaders: (headers) => {
+      const token = localStorage.getItem("jwt");
+
+      if (token) {
+        headers.set("Authorization", `Bearer ${token}`);
+      }
       return headers;
     },
   }),
@@ -27,6 +32,23 @@ export const apiSlice = createApi({
           }),
           invalidatesTags: ["get-all-cars"],
         }),
+
+        //get all cars
+        getAllCars: builder.query({
+          query: (arg) => `/user/get/all/cars`,
+          method: "GET",
+          providesTags: ["get-all-cars"],
+        }),
+
+        //rent car
+        pickCar: builder.mutation({
+          query: (data) => ({
+            url: "/user/rent/car",
+            method: "POST",
+            body: data,
+          }),
+          invalidatesTags: ["get-all-cars"],
+        }),
     }),
 });
 
@@ -34,4 +56,6 @@ export const apiSlice = createApi({
 export const {
     useUserRegisterMutation,
     useUserLoginMutation,
+    useGetAllCarsQuery,
+    usePickCarMutation,
 } = apiSlice;

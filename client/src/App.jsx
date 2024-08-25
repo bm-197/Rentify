@@ -5,6 +5,7 @@ import Signup from "./components/Signup";
 import Login from "./components/Login";
 import About from "./Pages/About";
 import TestimonialsPage from "./Pages/TestimonialsPage";
+import Models from "./Pages/Models";
 import "./index.css";
 import { Route, Routes, useLocation } from "react-router-dom";
 
@@ -25,6 +26,7 @@ function App() {
         <Route path="login" element={<Login />} />
         <Route path="about" element={<About />} />
         <Route path="testimonials" element={<TestimonialsPage />} />
+        <Route path="book" element={<Models />} />
     </Routes>
     </>
   );
