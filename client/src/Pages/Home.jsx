@@ -1,6 +1,7 @@
 import Hero from "../components/Hero";
 import PlanTrip from "../components/PlanTrip";
 import ChooseUs from "../components/ChooseUs";
+import Testimonials from "../components/Testimonials";
 
 function Home() {
   return (
@@ -8,6 +9,7 @@ function Home() {
       <Hero />
       <PlanTrip />
       <ChooseUs />
+      <Testimonials />
     </>
   );
 }
