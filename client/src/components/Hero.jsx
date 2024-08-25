@@ -3,7 +3,7 @@ import BgShape from "../images/hero/hero-bg.png";
 import HeroCar from "../images/hero/main-car.png";
 import { useEffect, useState } from "react";
 
-function Hero() {
+function Hero({ onClick }) {
   const [goUp, setGoUp] = useState(false);
   const [val, setVal] = useState(true);
 
@@ -32,7 +32,7 @@ function Hero() {
   return (
     <>
       <section id="home" className="hero-section">
-        <div className="container">
+        <div className="container" onClick={onClick}>
           <img className="bg-shape" src={BgShape} style = {{top: -15}}alt="bg-shape" />
           <div className="hero-content">
             <div className="hero-content__text">

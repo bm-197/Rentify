@@ -48,8 +48,7 @@ const Signup = () => {
 
   return (
     <div className="signup-container">
-      <div onClick={() => navigate("/")} className="hero-overlay"></div>
-      <Hero />
+      <Hero onClick={() => navigate("/")} />
       <div className="signup-card z-30">
         <h2>Your Personal Information</h2>
 

@@ -33,8 +33,7 @@ const Login = () => {
 
   return (
     <div className="signup-container">
-      <div onClick={() => navigate("/")}></div>
-      <Hero />
+      <Hero onClick={() => navigate("/")} />
       <div className="signup-card z-30">
         <h2>Login</h2>
         <input
