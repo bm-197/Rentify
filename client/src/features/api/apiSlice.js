@@ -18,10 +18,20 @@ export const apiSlice = createApi({
             body: data,
         }),
         }),
+         //user login
+        userLogin: builder.mutation({
+          query: (data) => ({
+            url: "/user/login",
+            method: "POST",
+            body: data,
+          }),
+          invalidatesTags: ["get-all-cars"],
+        }),
     }),
 });
 
 
 export const {
     useUserRegisterMutation,
+    useUserLoginMutation,
 } = apiSlice;

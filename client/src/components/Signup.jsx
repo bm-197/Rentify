@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useUserRegisterMutation } from "./../features/api/apiSlice";
 import { useNavigate } from 'react-router-dom';
 import "../dist/styles.css";
+import Hero from "./Hero";
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -47,50 +48,65 @@ const Signup = () => {
 
   return (
     <div className="signup-container">
-      <div className="signup-card">
+      <div onClick={() => navigate("/")} className="hero-overlay"></div>
+      <Hero />
+      <div className="signup-card z-30">
         <h2>Your Personal Information</h2>
-        <input
-          onChange={(e) => setFirstName(e.target.value)}
-          className="signup-input"
-          type="text"
-          placeholder="First Name"
-        />
-        <input
-          onChange={(e) => setLastName(e.target.value)}
-          className="signup-input"
-          type="text"
-          placeholder="Last Name"
-        />
-        <input
-          onChange={(e) => setEmail(e.target.value)}
-          className="signup-input"
-          type="text"
-          placeholder="Email"
-        />
-        <input
-          onChange={(e) => setAddress(e.target.value)}
-          className="signup-input"
-          type="text"
-          placeholder="Address"
-        />
-        <input
-          onChange={(e) => setPhone(e.target.value)}
-          className="signup-input"
-          type="text"
-          placeholder="Phone Number"
-        />
-        <input
-          onChange={(e) => setPassword(e.target.value)}
-          className="signup-input"
-          type="password"
-          placeholder="Password"
-        />
-        <input
-          onChange={(e) => setConfirmPassword(e.target.value)}
-          className="signup-input"
-          type="password"
-          placeholder="Confirm Password"
-        />
+
+        <div className="signup-row">
+          <input
+            onChange={(e) => setFirstName(e.target.value)}
+            className="signup-input"
+            type="text"
+            placeholder="First Name"
+          />
+          <input
+            onChange={(e) => setLastName(e.target.value)}
+            className="signup-input"
+            type="text"
+            placeholder="Last Name"
+          />
+        </div>
+
+        <div className="signup-row">
+          <input
+            onChange={(e) => setEmail(e.target.value)}
+            className="signup-input"
+            type="text"
+            placeholder="Email"
+          />
+          <input
+            onChange={(e) => setAddress(e.target.value)}
+            className="signup-input"
+            type="text"
+            placeholder="Address"
+          />
+        </div>
+
+        <div className="signup-row">
+          <input
+            onChange={(e) => setPhone(e.target.value)}
+            className="signup-input"
+            type="text"
+            placeholder="Phone Number"
+          />
+        </div>
+
+        <div className="signup-row">
+          <input
+            onChange={(e) => setPassword(e.target.value)}
+            className="signup-input"
+            type="password"
+            placeholder="Password"
+          />
+          <input
+            onChange={(e) => setConfirmPassword(e.target.value)}
+            className="signup-input"
+            type="password"
+            placeholder="Confirm Password"
+          />
+        </div>
+
         <label className="signup-profile-pic-label">
           Choose Profile Picture (Optional)
           <input
@@ -100,9 +116,21 @@ const Signup = () => {
             name="profilePic"
           />
         </label>
+
         <button onClick={submit} className="signup-button">
           Register
         </button>
+
+        <div className="existing-account">
+          <p>Already have an account?</p>
+          <button
+            onClick={() => navigate("/login")}
+            className="login-button"
+          >
+            Login here
+          </button>
+        </div>
+
         {registerResponse?.status === "pending" && (
           <div className="signup-loading">
             <div className="spinner"></div>
@@ -116,14 +144,10 @@ const Signup = () => {
       )}
       {registerResponse?.status === "rejected" && (
         <div className="signup-message error">
-          {registerResponse.error !== undefined ? (
-            Array.isArray(registerResponse.error?.data) ? (
-              registerResponse.error.data.map((e, index) => (
-                <p key={index}>{e.msg}</p>
-              ))
-            ) : (
-              <p>Something went wrong</p>
-            )
+          {Array.isArray(registerResponse.error?.data) ? (
+            registerResponse.error.data.map((e, index) => (
+              <p key={index}>{e.msg}</p>
+            ))
           ) : (
             <p>Something went wrong</p>
           )}

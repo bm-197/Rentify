@@ -64,7 +64,7 @@ function Navbar() {
             <li>
               {user === null && (
                 <div className="flex flex-col gap-3 -mt-5">
-                  <Link onClick={openNav} className="navbar__buttons__sign-in" to="/">
+                  <Link onClick={openNav} className="navbar__buttons__sign-in" to="/login">
                     Sign In
                   </Link>
                   <Link onClick={openNav} className="navbar__buttons__register" to="/signup">
@@ -148,7 +148,7 @@ function Navbar() {
 
           {user === null && (
             <div className="navbar__buttons">
-              <Link className="navbar__buttons__sign-in" to="/">
+              <Link className="navbar__buttons__sign-in" to="/login">
                 Sign In
               </Link>
               <Link className="navbar__buttons__register" to="/signup">

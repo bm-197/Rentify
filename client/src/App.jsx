@@ -2,6 +2,7 @@ import "../src/dist/styles.css";
 import Navbar from "./components/Navbar";
 import Home from "./Pages/Home";
 import Signup from "./components/Signup";
+import Login from "./components/Login";
 import "./index.css";
 import { Route, Routes, useLocation } from "react-router-dom";
 
@@ -19,6 +20,8 @@ function App() {
       <Routes>
         <Route index path="/" element={<Home />} />
         <Route path="signup" element={<Signup />} />
+        <Route path="login" element={<Login />} />
+        
     </Routes>
     </>
   );
