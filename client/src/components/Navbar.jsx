@@ -47,13 +47,8 @@ function Navbar() {
               </Link>
             </li>
             <li>
-              <Link onClick={openNav} to="/">
+              <Link onClick={openNav} to="/testimonials">
                 Testimonials
-              </Link>
-            </li>
-            <li>
-              <Link onClick={openNav} to="/">
-                Our Team
               </Link>
             </li>
             <li>
@@ -120,14 +115,8 @@ function Navbar() {
 
             <li>
               {" "}
-              <Link className="testi-link" to="/">
+              <Link className="testi-link" to="/testimonials">
                 Testimonials
-              </Link>
-            </li>
-            <li>
-              {" "}
-              <Link className="team-link" to="/">
-                Our Team
               </Link>
             </li>
             <li>
