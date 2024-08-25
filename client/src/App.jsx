@@ -1,6 +1,9 @@
 import "../src/dist/styles.css";
 import Navbar from "./components/Navbar";
+import Home from "./Pages/Home";
+
 import "./index.css";
+import { Route, Routes } from "react-router-dom";
 
 
 function App() {
@@ -8,6 +11,9 @@ function App() {
   return (
     <>
       <Navbar />
+      <Routes>
+        <Route index path="/" element={<Home />} />
+    </Routes>
     </>
   );
 }
