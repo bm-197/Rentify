@@ -87,10 +87,11 @@ export default class CarsController {
   static async getAllcars(req, res, next) {
     try {
       let cars;
-      if (req.query.type === "user") {
-        cars = await Car.find({ active: true });
-      } else if (req.query.type === "admin") {
-        cars = await Car.find();
+      
+      cars = await Car.find({ active: true });
+      if (!cars || cars.length === 0) {
+        console.log("cars Not found")
+        return res.status(404).json({ error: "No cars found." });
       }
       return res.status(200).send(cars);
     } catch (error) {
