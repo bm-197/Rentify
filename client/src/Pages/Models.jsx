@@ -54,7 +54,8 @@ function Models() {
     if (searchInput.length > 0) {
       setCars(
         data?.filter((d) =>
-          d.model.toString().toLowerCase().startsWith(searchInput.toLowerCase())
+          d.model.toString().toLowerCase().startsWith(searchInput.toLowerCase()) ||
+          d.mark.toString().toLowerCase().startsWith(searchInput.toLowerCase())
         ) || []
       );
     } else {
@@ -136,197 +137,233 @@ function Models() {
         <input
           onChange={(e) => setSearchInput(e.target.value)}
           type="text"
-          className="w-[80%] mx-[10%] h-20 mt-44 border focus:outline-none focus:border-2 rounded-full text-center text-2xl font-extrabold border-[#ff4c30]"
+          className="w-[80%] mx-[10%] h-20 mt-44 border focus:outline-none focus:border-2 rounded-full text-center text-2xl font-extrabold border-[#ff4c30] mb-10"
           placeholder="Search Vehicles"
         />
         {/* <HeroPages name="Vehicle Models" /> */}
         <div className="container">
-          <div className="models-div">
-            {cars ? (
-              cars.map((car) => {
-                return (
-                  <div key={car._id} className="relative flex rounded-md items-center shadow-xl shadow-gray-500 flex-col bg-gray-50 h-[300px] w-[350px]">
-                    <img src={`http://localhost:5000/uploads/${car.carPhoto}`} alt="CAR" className="h-64 w-[85%]" />
-                    <p className="text-2xl flex top-0 right-[26px] px-2 py-2 text-gray-500 bg-gray-100  font-bold absolute">{car.mark}</p>
-                    <div className="mt-4 text-2xl font-extrabold text-gray-500 bg-white flex justify-between h-auto w-[85%]">
-                      <div className="flex gap-2">
-                        <p className="">Model : </p>
-                        <p className="text-red-400">{car.model}</p>
-                      </div>
-                      <div className="flex gap-2">
-                        <p className="">Price : </p>
-                        <p className="text-red-400">$ {car.price}/day</p>
-                      </div>
-                    </div>
-                    <div className="mt-1 text-xl font-extrabold text-gray-500 bg-white flex justify-between h-auto w-[85%]">
-                      <div className="flex gap-2">
-                        <p className="">Door : </p>
-                        <p className="text-red-400">{car.door}</p>
-                      </div>
-                      <div className="flex gap-2">
-                        <p className="">Fuel : </p>
-                        <p className="text-red-400">{car.fuel}</p>
-                      </div>
-                    </div>
-                    <div className="mt-1 text-xl font-extrabold text-gray-500 bg-white flex justify-between h-auto w-[85%]">
-                      <div className="flex gap-2">
-                        <p className="">Transmission : </p>
-                        <p className="text-red-400">{car.transmission}</p>
-                      </div>
-                      <div className="flex gap-2">
-                        <p className="">Ac : </p>
-                        <p className="text-red-400">{car.ac ? "YES" : "NO"}</p>
-                      </div>
-                    </div>
-                    {!car.status && (
-                      <div className="mt-4 rounded-md text-3xl font-extrabold text-white bg-red-400 flex py-3 justify-center items-center h-auto w-[85%] cursor-default">
-                        {car.status ? "Available" : "Taken"}{" "}
-                        <span className="text-xl text-gray-200 font-bold ml-2">
-                          {"("}Visit Later {")"}
-                        </span>{" "}
-                      </div>
-                    )}
-                    {car.status && (
-                      <div
-                        onClick={() => {
-                          formHandler(car);
-                          setCarPrice(car.price);
-                        }}
-                        className="mt-4 rounded-md text-3xl font-extrabold text-white bg-[#ff4d30] flex py-3 justify-center items-center h-auto w-[85%] cursor-pointer hover:scale-105 duration-200"
-                      >
-                        Book Now
-                      </div>
-                    )}
-                  </div>
-                );
-              })
-            ) : (
-              <div className="flex items-center absolute w-[100%] left-0 h-[100%] justify-center  text-3xl font-extrabold text-gray-500">Loading...</div>
-            )}
-
-            {error && errorMessage && (
-              <div className="absolute z-20 text-3xl top-72 right-10 w-auto rounded-md h-auto border border-gray-500 text-gray-500 py-2 px-2 shadow-xl shadow-gray-400 flex items-center justify-center">
-                {errorMessage}
+        <div className="models-div flex flex-wrap gap-8 justify-center">
+        {cars ? (
+          cars.map((car) => (
+            <div
+              key={car._id}
+              className="relative flex flex-col items-center rounded-lg bg-white shadow-lg transition-transform transform hover:scale-105 w-[350px] overflow-hidden border border-gray-200 p-4"
+            >
+              {/* Image Section */}
+              <div className="w-full mb-4">
+                <img
+                  src={`http://localhost:5000/uploads/${car.carPhoto}`}
+                  alt="Car"
+                  className="w-full h-[180px] object-cover rounded-md shadow-md"
+                />
               </div>
-            )}
+
+              {/* Car Info */}
+              <div className="text-center mb-4">
+                <h2 className="text-3xl font-bold text-gray-800">{car.mark}</h2>
+              </div>
+
+              {/* Icons and Info Section */}
+              <div className="grid grid-cols-2 gap-4 text-gray-700 mb-4">
+              <div className="flex items-center gap-2">
+                  <span className="text-4xl">🚗</span>
+                  <p className="text-lg">{car.model}</p>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="text-4xl">⚙️</span>
+                  <p className="text-lg">{car.transmission}</p>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="text-4xl">⛽</span>
+                  <p className="text-lg">{car.fuel}</p>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="text-4xl">🚪</span>
+                  <p className="text-lg">{car.door} Doors</p>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="text-4xl">❄️</span>
+                  <p className="text-lg">{car.ac ? "AC" : "No AC"}</p>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="text-5xl">💵</span>
+                  <p className="text-lg">${car.price}/day</p>
+                </div>
+              </div>
+
+              {/* Booking Button */}
+              {car.status === "Available" ? (
+                <button
+                  onClick={() => {
+                    formHandler(car);
+                    setCarPrice(car.price);
+                  }}
+                  className="mt-4 w-[90%] bg-[#ff2525] text-white py-2 rounded-full text-lg font-semibold hover:bg-red-600 transition"
+                >
+                  Book
+                </button>
+              ) : (
+                <div className="mt-4 w-[90%] text-center bg-red-500 text-white py-2 rounded-full text-lg font-semibold cursor-default">
+                  Taken
+                </div>
+              )}
+            </div>
+          ))
+        ) : (
+          <div className="flex items-center justify-center w-full h-full text-3xl font-bold text-gray-500">
+            Loading...
+          </div>
+        )}
+
+          {error && errorMessage && (
+            <div className="absolute z-20 text-3xl top-72 right-10 w-auto rounded-md h-auto border border-gray-500 text-gray-500 py-2 px-2 shadow-xl shadow-gray-400 flex items-center justify-center">
+              {errorMessage}
+            </div>
+          )}
+
             {/* ################################################################################## */}
             {formPopUp && carPayment && (
-              <div className="fixed z-10 backdrop-blur-sm backdrop-brightness-[0.7] bg-transparent  h-[100vh] w-[100%] top-0 left-0 flex flex-col items-center justify-center">
-                <div
-                  onClick={() => {
-                    setPickDate(" ");
-                    setDropDate(" ");
-                    setPickTime(" ");
-                    setDropTime(" ");
-                    setFormPopUp(false);
-                  }}
-                  className="absolute z-20  h-[100vh] w-[100%] top-0 left-0 bg-transparent"
-                ></div>
-                <div className="relative text-2xl flex overflow- flex-col items-center justify-center rounded-md z-30 bg-white h-auto w-[90%] lg:w-[70%] lg:mt-20  left-0">
-                  <p className="text-3xl font-extrabold text-gray-500">Rental Information</p>
-                  <div className="hidden md:flex gap-4 px-2 py-2 w-[90%] h-[35%]">
-                    <img src={`http://localhost:5000/uploads/${carPayment.carPhoto}`} alt="car" className="w-[50%] rounded-md h-[100%]" />
-                    <div className="w-[50%] flex flex-col gap-4">
-                      <div className="mt-4 text-2xl font-extrabold text-gray-500 bg-white flex justify-between h-auto w-[85%]">
-                        <div className="flex gap-2">
-                          <p className="">Model : </p>
-                          <p className="text-red-400">{carPayment.model}</p>
+            <div className="fixed z-10 backdrop-blur-lg backdrop-brightness-[0.7] bg-black/50 h-full w-full top-0 left-0 flex items-center justify-center">
+              <div
+                onClick={() => {
+                  setPickDate("");
+                  setDropDate("");
+                  setPickTime("");
+                  setDropTime("");
+                  setFormPopUp(false);
+                }}
+                className="absolute inset-0 bg-transparent"
+              ></div>
+              <div className="relative text-base lg:text-lg flex flex-col items-center justify-center rounded-lg z-30 bg-white shadow-lg h-auto w-[85%] lg:w-[60%] p-4 lg:p-6">
+                <p className="text-2xl font-extrabold text-gray-500 mb-4">Rental Information</p>
+                
+                {/* Car Image and Information */}
+                <div className="flex flex-col lg:flex-row w-full gap-4 ">
+                  <img src={`http://localhost:5000/uploads/${carPayment.carPhoto}`} alt="car" className="w-full lg:w-[45%] rounded-md h-auto transition-transform transform hover:scale-105" />
+                    <div className="w-full lg:w-[55%] flex flex-col gap-2 bg-gray-100 p-4 rounded-md shadow-lg transition-transform transform hover:scale-105">
+                        {[
+                        { label: 'Model', value: carPayment.model, icon: '🚗' },
+                        { label: 'Price', value: `$ ${carPayment.price}`, icon: '💵' },
+                        { label: 'Door', value: carPayment.door, icon: '🚪' },
+                        { label: 'Fuel', value: carPayment.fuel, icon: '⛽' },
+                        { label: 'Transmission', value: carPayment.transmission, icon: '⚙️' },
+                        { label: 'AC', value: carPayment.ac ? 'Yes' : 'No', icon: '❄️' },
+                        { label: 'Mark', value: carPayment.mark, icon: '🏷️' }
+                      ].map((item, index) => (
+                        <div key={index} className="flex items-center justify-around text-gray-700 mb-2">
+                          <div className="flex items-center gap-2">
+                            <span className="text-2xl mr-2">{item.icon}</span>
+                            <p className="font-semibold text-lg">{item.label}:</p>
+                          </div>
+                          <p className="text-red-500 font-semibold text-lg">{item.value}</p>
                         </div>
-                        <div className="flex gap-2">
-                          <p className="">Price : </p>
-                          <p className="text-red-400">$ {carPayment.price}</p>
-                        </div>
+                      ))}
+                   </div>
+                </div>
+
+                {/* Rental Form and Payment Method */}
+                <div className="flex flex-col lg:flex-row w-full mt-6 gap-6">
+                  {/* Rental Form */}
+                  <div className="w-full lg:w-[45%] flex flex-col bg-white p-5 border border-gray-200 rounded-xl shadow-lg transition-transform transform hover:scale-105">
+                    <p className="text-2xl font-extrabold text-gray-700 mb-3">Rental Form</p>
+                    <p className="text-base font-medium text-red-500 mb-4">* All fields are required *</p>
+
+                    <div className="mb-5">
+                      <p className="font-bold text-lg text-gray-600 mb-2">Pick-Up Date & Time</p>
+                      <div className="flex gap-3">
+                        <input 
+                          required 
+                          onChange={(e) => setPickDate(e.target.value)} 
+                          type="date" 
+                          className="border border-gray-300 rounded-lg p-2 w-full bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-400 transition duration-150"
+                        />
+                        <input 
+                          required 
+                          onChange={(e) => setPickTime(e.target.value)} 
+                          type="time" 
+                          className="border border-gray-300 rounded-lg p-2 w-full bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-400 transition duration-150"
+                        />
                       </div>
-                      <div className="mt-1 text-xl font-extrabold text-gray-500 bg-white flex justify-between h-auto w-[85%]">
-                        <div className="flex gap-2">
-                          <p className="">Door : </p>
-                          <p className="text-red-400">{carPayment.door}</p>
-                        </div>
-                        <div className="flex gap-2">
-                          <p className="">Fuel : </p>
-                          <p className="text-red-400">{carPayment.fuel}</p>
-                        </div>
+                    </div>
+
+                    <div>
+                      <p className="font-bold text-lg text-gray-600 mb-2">Drop-Off Date & Time</p>
+                      <div className="flex gap-3">
+                        <input 
+                          required 
+                          onChange={(e) => setDropDate(e.target.value)} 
+                          type="date" 
+                          className="border border-gray-300 rounded-lg p-2 w-full bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-400 transition duration-150"
+                        />
+                        <input 
+                          required 
+                          onChange={(e) => setDropTime(e.target.value)} 
+                          type="time" 
+                          className="border border-gray-300 rounded-lg p-2 w-full bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-400 transition duration-150"
+                        />
                       </div>
-                      <div className="mt-1 text-xl font-extrabold text-gray-500 bg-white flex justify-between h-auto w-[85%]">
-                        <div className="flex gap-2">
-                          <p className="">Transmission : </p>
-                          <p className="text-red-400">{carPayment.transmission}</p>
-                        </div>
-                        <div className="flex gap-2">
-                          <p className="">Ac : </p>
-                          <p className="text-red-400">{carPayment.ac}</p>
-                        </div>
-                      </div>
-                      <p className="text-xl w-[85%] flex justify-start font-extrabold text-gray-500">
-                        Mark : <span className="text-red-400 ml-2">{carPayment.mark}</span>
-                      </p>
                     </div>
                   </div>
 
-                  {/* ################################################################################# */}
-                  <div className="h-auto bg-white gap-4 px-2 mt-6 border-2 border-gray-500 py-2 w-[90%] flex flex-col md:flex-row">
-                    <div className="h-auto flex flex-col items-center justify-center">
-                      <p className="text-2xl font-extrabold py-1 ml-3 text-gray-500">Rental Form</p>
-                      <p className="text-xl font-bold text-red-400">* each fields are required *</p>
-
-                      <div className="border border-gray-500 mt-3 ml-3">
-                        <p className="py-2 font-extrabold">Select Pick-Up Date & Time</p>
-                        <p className="flex text-xl">
-                          <input required onChange={(e) => setPickDate(e.target.value)} type="date" className="" />
-                          <input required onChange={(e) => setPickTime(e.target.value)} type="time" className="" />
-                        </p>
-                      </div>
-                      <div className="border border-gray-500 mt-3 ml-3">
-                        <p className="py-2 font-extrabold">Select Drop-Off Date & Time</p>
-                        <p className="flex text-xl">
-                          <input required onChange={(e) => setDropDate(e.target.value)} type="date" className="" />
-                          <input required onChange={(e) => setDropTime(e.target.value)} type="time" className="" />
-                        </p>
-                      </div>
-                    </div>
-                    <div className="flex flex-col bg-white text-gray-600 h-auto w-[100%] items-center justify-center">
-                      <p className="text-3xl font-extrabold">Payment Methods</p>
-                      <div className="flex gap-8 mt-6">
-                        <div className="flex items-center px-2 border-r border-gray-600 flex-col gap-4 bg-white justify-center w-[50%]">
-                          <p className="text-xl font-extrabold underline">Test Mode</p>
-                          <p className="text-xl font-extrabold">Test This System With Out Any Payment</p>
+                  {/* Payment Methods */}
+                  <div className="w-full lg:w-[55%] flex flex-col bg-white p-6 border border-gray-200 rounded-lg shadow-lg transition-transform transform hover:scale-105">
+                      <p className="text-2xl font-extrabold text-gray-800 mb-4">Payment Methods</p>
+                      
+                      <div className="flex flex-col gap-6">
+                        {/* Test Mode */}
+                        <div className="flex flex-col items-center border-b border-gray-300 pb-5">
+                          <p className="text-xl font-bold text-red-600 mb-2">Test Mode</p>
+                          <p className="text-base font-medium text-gray-700 mb-4 text-center">Test this system without any payment</p>
                           <button
                             onClick={() => pickCarHandler(carPayment)}
-                            className="w-[90%] flex gap-3 text-white h-20 bg-[#ff4d30] hover:scale-105 font-extrabold duration-150 rounded-md cursor-pointer items-center justify-center"
+                            className="w-full flex gap-3 text-white h-12 bg-red-500 hover:bg-red-600 focus:ring-2 focus:ring-red-400 font-bold transition duration-200 rounded-lg shadow-sm hover:scale-105 item-center justify-center"
                           >
-                            Book Car
+                            <span className="text-lg">Book Car</span>
                           </button>
                         </div>
-                        <div className="flex items-center flex-col gap-4 bg-white justify-center w-[50%]">
-                          <p className="text-xl font-extrabold underline">Real Payment</p>
-                          <div className="flex gap-1 bg-white justify-center w-[50%]">
-                            <img src="./paypal.png" alt="VISA" className="h-14 w-14" />
-                            <img src="./discover.png" alt="VISA" className="h-14 w-14" />
-                            <img src="./visa.png" alt="VISA" className="h-14 w-14" />
-                            <img src="./master.png" alt="VISA" className="h-14 w-14" />
+
+                        {/* Real Payment */}
+                        <div className="flex flex-col items-center">
+                          <p className="text-xl font-bold text-blue-600 mb-2">Real Payment</p>
+                          <div className="flex gap-3 mb-4">
+                            <img src="./paypal.png" alt="PayPal" className="h-10 w-10" />
+                            <img src="./discover.png" alt="Discover" className="h-10 w-10" />
+                            <img src="./visa.png" alt="VISA" className="h-10 w-10" />
+                            <img src="./master.png" alt="MasterCard" className="h-10 w-10" />
                           </div>
                           <div
                             onClick={() => paymentHandler()}
-                            className="w-[90%] flex gap-3 text-white h-20 bg-blue-500 hover:scale-105 duration-150 rounded-md cursor-pointer items-center justify-center"
+                            className="w-full flex gap-3 text-white h-12 bg-blue-600 hover:bg-blue-700 focus:ring-2 focus:ring-blue-400 font-bold transition duration-200 rounded-lg shadow-sm hover:scale-105 cursor-pointer items-center justify-center"
                           >
-                            <p className="text-2xl font-extrabold">Pay</p>
-                            <ArrowForward fontSize="large" className="" />
+                            <span className="text-lg">Pay</span>
+                            <ArrowForward fontSize="medium" />
                           </div>
                         </div>
                       </div>
-                    </div>
-                    {pickCarResponse.status === "rejected" && <div className="w-[100%] px-2 py-2 border text-xl font-bold text-gray-500 absolute top-10 right-20">{pickCarResponse.error.data}</div>}
-                    {pickError && (
-                      <div className="w-[50%] px-2 py-5 border border-emerald-400 bg-white text-2xl font-bold text-emerald-400 absolute z-40 bottom-10 right-0">{pickCarResponse.data.message}</div>
-                    )}
-                    {fillError && (
-                      <div className="w-[50%] px-2 py-5 border border-gray-500 bg-white text-2xl font-bold text-gray-500 absolute z-40 bottom-10 right-2">please insert pick and drop date</div>
-                    )}
                   </div>
-                  {/* ############################################################################### */}
+
                 </div>
+
+                {/* Error Messages */}
+                {pickCarResponse.status === "rejected" && (
+                  <div className="w-full px-3 py-2 mt-4 border border-red-500 bg-red-100 text-red-500 text-center text-base rounded">
+                    {pickCarResponse.error.data}
+                  </div>
+                )}
+                {pickError && (
+                  <div className="w-full px-3 py-2 mt-4 border border-emerald-500 bg-emerald-100 text-emerald-500 text-center text-base rounded">
+                    {pickCarResponse.data.message}
+                  </div>
+                )}
+                {fillError && (
+                  <div className="w-full px-3 py-2 mt-4 border border-gray-500 bg-gray-100 text-gray-500 text-center text-base rounded">
+                    Please insert pick and drop date
+                  </div>
+                )}
               </div>
-            )}
+            </div>
+          )}
+
             {/* ______________________________________________###################____________________ */}
             {paymentContainer && (
               <div className={`fixed overflow-y-scroll left-0 py-10 top-0 flex flex-col z-50 min-h-[100vh] max-h-[200vh] h-auto w-full bg-white justify-center items-center`}>
