@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-const DB_URL = process.env.MONGODB_URL;
+const DB_URL = process.env.NODE_ENV === 'production' ? process.env.MONGOGB_URI : process.env.MONGOGB_URL;
 
 const connectDB = async () => {
   try {
