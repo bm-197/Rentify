@@ -6,10 +6,7 @@ export default class ActionsController {
     const { type, id, action } = req.body;
 
     try {
-      if (type === "user") {
-        await Signup.updateOne({ _id: id }, { status: action });
-        return res.status(200).send(`User ${action} successfully.`);
-      } else if (type === "RELEASE_CAR") {
+      if (type === "RELEASE_CAR") {
         await Car.updateOne({ _id: id }, { status: "available" });
         return res.status(200).send("Car released.");
       } else if (type === "HIDE_CAR") {
