@@ -10,7 +10,6 @@ const SignupSchema = new mongoose.Schema({
   phone: String,
   password: String,
   confirmPassword: String,
-  role: { type: String, default: "user" },
   status: { type: String, default: "active" },
   profilePic: { type: String, default: "profilePic.png" },
 });
