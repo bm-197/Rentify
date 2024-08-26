@@ -3,7 +3,9 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const apiSlice = createApi({
   reducerPath: "api",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:5000",
+    baseUrl: import.meta.env.VITE_APP_NODE_ENV === 'production' 
+    ? 'https://rentify-5gxr.onrender.com' 
+    : 'http://localhost:5000',
     prepareHeaders: (headers) => {
       const token = localStorage.getItem("jwt");
 
