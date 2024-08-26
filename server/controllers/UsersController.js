@@ -20,7 +20,7 @@ export default class UsersController {
         email,
         address,
         phone,
-        profilePic: req.files.profilePic ? req.files.profilePic[0].path : undefined,
+        profilePic: req.files.profilePic ? req.files.profilePic[0].path : 'uploads/profilePic.png',
         password,
       });
 
