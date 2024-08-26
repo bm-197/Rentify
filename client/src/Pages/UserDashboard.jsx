@@ -19,6 +19,7 @@ const UserDashboard = () => {
   const { data: allCarsData } = useGetAllCarsQuery({ type: "admin" });
   const { data: historyData } = useGetHistoryQuery();
   const [deleteHistoryData] = useDeleteHistoryMutation();
+  const [previewUrl, setPreviewUrl] = useState(null);
 
   //customers data
   const [customersData, setCustomersData] = useState("");
@@ -58,6 +59,18 @@ const UserDashboard = () => {
   const [transmission, setTransmission] = useState("");
   const [fuel, setFuel] = useState("");
   const [year, setYear] = useState("");
+
+  // car photo handler
+  const handlePhotoChange = (e) => {
+    const file = e.target.files[0];
+    setCarPhoto(file);
+
+    // Generate a URL for the selected file
+    if (file) {
+      const objectUrl = URL.createObjectURL(file);
+      setPreviewUrl(objectUrl);
+    }
+  };
 
   //add car handler
   const addCarHandler = () => {
@@ -334,15 +347,28 @@ const UserDashboard = () => {
             <div className="w-[90%] h-[98%] items-center justify-start flex flex-col bg-white px-8 py-12 shadow-lg rounded-lg">
                 <div className="flex relative flex-col items-center justify-center bg-white w-[70%] h-auto">
                 <p className="text-4xl font-extrabold flex items-center justify-center text-gray-700 bg-white w-full mb-8 uppercase">Car Information</p>
-                <input
-                    onChange={(e) => setCarPhoto(e.target.files[0])}
-                    className="font-bold cursor-pointer text-xl border border-gray-400 flex items-center justify-center w-full h-16 opacity-0 absolute top-0"
+                <div className="relative w-full">
+                  <input
+                    onChange={handlePhotoChange}
+                    className="absolute inset-0 w-full h-16 opacity-0 cursor-pointer"
                     type="file"
                     name="carPhoto"
-                />
-                <p className="h-16 text-lg flex items-center text-[#ff4d30] font-semibold mt-4 w-full px-4 py-2 border border-gray-400 rounded-lg focus:outline-none cursor-pointer">
-                    <DirectionsCar className="mr-2" /> <span className="text-gray-600">Choose Car Photo</span>
-                </p>
+                    accept="image/*"
+                  />
+                  <p className="h-16 text-lg flex items-center text-[#ff4d30] font-semibold mt-4 w-full px-4 py-2 border border-gray-400 rounded-lg focus:outline-none cursor-pointer">
+                    <DirectionsCar className="mr-2" />{" "}
+                    <span className="text-gray-600">Choose Car Photo</span>
+                  </p>
+                  {previewUrl && (
+                    <div className="mt-4">
+                      <img
+                        src={previewUrl}
+                        alt="Car Preview"
+                        className="w-full h-auto max-h-64 object-contain border border-gray-300 rounded-lg shadow-md"
+                      />
+                    </div>
+                  )}
+                  </div>
 
                 {/* Grouping fields in two columns */}
                 <div className="w-full flex flex-wrap gap-4 mt-6">
@@ -350,7 +376,7 @@ const UserDashboard = () => {
                     onChange={(e) => setPrice(e.target.value)}
                     className="flex-1 h-16 text-lg font-semibold px-4 py-2 border border-gray-400 rounded-lg focus:outline-none focus:border-[#ff4d30]"
                     type="number"
-                    placeholder="Price"
+                    placeholder="Price / day"
                     />
                     <input
                     onChange={(e) => setModel(e.target.value)}
