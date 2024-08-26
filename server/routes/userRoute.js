@@ -13,13 +13,16 @@ const files = upload.fields([
     { name: "carPhoto", maxCount: 1 }
 ])
 
-userRouter.post("/register", files, userValidator, UsersControllers.postNewUser);
-userRouter.post("/login", UsersControllers.getUser);
+userRouter.post("/register", (req, res, next) => {
+    console.log(req.files); // Log the files object to check what's being received
+    next();
+}, files, userValidator, UsersControllers.postNewUser);
+userRouter.post("/login", files, UsersControllers.getUser);
 userRouter.get("/get/all/users", UsersControllers.getAllUser);
 userRouter.post("/add/car", files, AuthMiddleware, CarsController.postNewCar);
 userRouter.post("/rent/car", AuthMiddleware, files, CarsController.postRentCar);
-userRouter.get("/get/all/cars", CarsController.getAllcars);
-userRouter.get("/get/history", RentHistoryController.getHistory);
+userRouter.get("/get/all/cars", AuthMiddleware, CarsController.getAllcars);
+userRouter.get("/get/history", AuthMiddleware, RentHistoryController.getHistory);
 userRouter.delete("/delete/History", files, AuthMiddleware, RentHistoryController.deleteHistory);
 userRouter.patch("/freeze/active/user", AuthMiddleware, ActionsController.freeze);
 
