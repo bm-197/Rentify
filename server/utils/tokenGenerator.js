@@ -14,6 +14,7 @@ export const tokRes = ({ user, res, sc, done }) => {
   };
 
   res.cookie("jwt", token, cookieOptions);
-
+  res.set('Authorization', `Bearer ${token}`);
+  
   return res.status(sc).json({ message: done, token, data: user });
 }

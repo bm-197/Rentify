@@ -13,10 +13,7 @@ const files = upload.fields([
     { name: "carPhoto", maxCount: 1 }
 ])
 
-userRouter.post("/register", (req, res, next) => {
-    console.log(req.files); // Log the files object to check what's being received
-    next();
-}, files, userValidator, UsersControllers.postNewUser);
+userRouter.post("/register", files, userValidator, UsersControllers.postNewUser);
 userRouter.post("/login", files, UsersControllers.getUser);
 userRouter.get("/get/all/users", UsersControllers.getAllUser);
 userRouter.post("/add/car", files, AuthMiddleware, CarsController.postNewCar);
