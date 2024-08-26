@@ -71,7 +71,7 @@ function Navbar() {
             <li>
               {localStorage.getItem("jwt") !== null && user && (
                 <div className="flex flex-col gap-3 -mt-5">
-                    <Link onClick={openNav} className="navbar__buttons__sign-in" to="/">
+                    <Link onClick={openNav} className="navbar__buttons__sign-in" to="/dashboard">
                       Dashboard
                     </Link>
                   <Link
@@ -145,7 +145,7 @@ function Navbar() {
           )}
           {localStorage.getItem("jwt") !== null && user && (
             <div className="navbar__buttons">
-              <Link className="navbar__buttons__sign-in" to="/">
+              <Link className="navbar__buttons__sign-in" to="/dashboard">
                 Dashboard
               </Link>
               <Link onClick={logout} className="navbar__buttons__sign-in" to="/">

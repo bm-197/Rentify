@@ -8,7 +8,7 @@ import TestimonialsPage from "./Pages/TestimonialsPage";
 import Models from "./Pages/Models";
 import "./index.css";
 import { Route, Routes, useLocation } from "react-router-dom";
-
+import UserDashboard from "./Pages/UserDashboard";
 
 function App() {
   const location = useLocation();
@@ -27,6 +27,7 @@ function App() {
         <Route path="about" element={<About />} />
         <Route path="testimonials" element={<TestimonialsPage />} />
         <Route path="book" element={<Models />} />
+        <Route path="dashboard" element={<UserDashboard />} />
     </Routes>
     </>
   );
