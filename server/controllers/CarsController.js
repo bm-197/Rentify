@@ -88,7 +88,7 @@ export default class CarsController {
     try {
       let cars;
       
-      cars = await Car.find({ active: true });
+      cars = await Car.find();
       if (!cars || cars.length === 0) {
         console.log("cars Not found")
         return res.status(404).json({ error: "No cars found." });
